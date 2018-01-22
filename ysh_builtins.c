@@ -3,6 +3,7 @@
 char* builtins[] =
 {
 	"cd",
+	"ls",
 	"help",
 	"exit"
 };
@@ -10,6 +11,7 @@ char* builtins[] =
 int (*builtin_funcs[]) (char**) =
 {
 	&ysh_cd,
+	&ysh_ls,
 	&ysh_help,
 	&ysh_exit
 };
@@ -34,6 +36,47 @@ ysh_cd(args)
 		{
 			perror("ysh");
 		}
+	}
+
+	return 1;
+}
+
+int
+ysh_ls(args)
+	char** args;
+{
+	int len;
+	struct dirent *pDirent;
+	DIR *pDir;
+
+	char* working_directory = malloc(1024 * sizeof(char));
+	getcwd(working_directory, 1024);
+	printf("%s", working_directory);
+
+	pDir = opendir(working_directory);
+	if(pDir == NULL)
+	{
+		fprintf(stderr, "Cannot open directory...\n");
+	} else
+	{
+		strcat(working_directory, "/");
+		while((pDirent = readdir(pDir)) != NULL)
+		{
+			struct stat path_stat;
+
+			char* file = malloc(strlen(working_directory)+strlen(pDirent->d_name)+1);
+			//Please dont fail on memory allocation...
+			/*TODO: Add check. */
+			strcpy(file, working_directory);
+			strcat(file, pDirent->d_name);
+
+			stat(file, &path_stat);
+			if(S_ISREG(path_stat.st_mode))
+				printf("%s\n", pDirent->d_name);
+			else
+				printf("[%s]\n", pDirent->d_name);
+		}
+		closedir(pDir);
 	}
 
 	return 1;
