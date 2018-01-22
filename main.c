@@ -9,9 +9,21 @@ main(argc, argv)
 	char** args;
 	int status;
 
+	/* startup: read config file. */
+	FILE* config_file;
+	config_file = fopen("./.yshrc", "r");
+
+	char* input_buffer = malloc(4 * sizeof(char));
+	int config_buffer_size;
+	
+	printf("%d", sizeof(input_buffer) / sizeof(char));
+
+	free(input_buffer);
+	fclose(config_file);	
+
 	do
 	{
-		printf("> ");
+		printf("ysh>");
 		line = ysh_readline();
 
 		args = ysh_splitline(line);

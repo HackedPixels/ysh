@@ -51,7 +51,6 @@ ysh_ls(args)
 
 	char* working_directory = malloc(1024 * sizeof(char));
 	getcwd(working_directory, 1024);
-	printf("%s", working_directory);
 
 	pDir = opendir(working_directory);
 	if(pDir == NULL)
@@ -74,7 +73,7 @@ ysh_ls(args)
 			if(S_ISREG(path_stat.st_mode))
 				printf("%s\n", pDirent->d_name);
 			else
-				printf("[%s]\n", pDirent->d_name);
+				printf("[\033[7m%s\033[0m]\n", pDirent->d_name);
 		}
 		closedir(pDir);
 	}
