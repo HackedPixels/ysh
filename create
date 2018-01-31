@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# we start off with a clean slate.
+make clean
+# build the project (see Makefile)
+make
+# tell the user we are done.
+echo -e "\033[32mdone :)"
+# reset the terminal to normal mode.
+tput sgr0
