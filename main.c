@@ -13,10 +13,10 @@ main(argc, argv)
 	FILE* config_file;
 	config_file = fopen("./.yshrc", "r");
 
-	char* input_buffer = malloc(4 * sizeof(char));
-	int config_buffer_size;
+	char* input_buffer = malloc(CONFIG_BUFFER_INPUT_SIZE * sizeof(char));
 	
-	printf("%d", sizeof(input_buffer) / sizeof(char));
+	fread(input_buffer, 1, 10, config_file);
+	
 
 	free(input_buffer);
 	fclose(config_file);	

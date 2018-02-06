@@ -8,3 +8,7 @@ make
 echo -e "\033[32mdone :)"
 # reset the terminal to normal mode.
 tput sgr0
+
+# start the shell.
+cd ./build/
+./ysh.out

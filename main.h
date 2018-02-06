@@ -12,6 +12,8 @@
 	#define true 1
 #endif
 
+#define CONFIG_BUFFER_INPUT_SIZE 10
+
 #define OK 0
 
 int ysh_launch(char**);
