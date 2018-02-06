@@ -2,7 +2,7 @@
 
 **a shell where you can tell what the fuck is going on**
 
-* COMMANDS 
+COMMANDS 
   | name | description |
   | ---- | --------------- |
   | exit | exits the shell |
