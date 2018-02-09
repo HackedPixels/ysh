@@ -6,7 +6,7 @@ all:
 	# the directory where we will lay our compiled files.
 	@mkdir ./build/
 	# move our compiled file in the build file.
-	# (and call it ysh.out) 
+	# (and call it ysh.out)
 	@mv ./a.out ./build/ysh.out
 
 	# generate the config files.

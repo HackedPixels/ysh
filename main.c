@@ -13,13 +13,27 @@ main(argc, argv)
 	FILE* config_file;
 	config_file = fopen("./.yshrc", "r");
 
-	char* input_buffer = malloc(CONFIG_BUFFER_INPUT_SIZE * sizeof(char));
-	
-	fread(input_buffer, 1, 10, config_file);
-	
+	int chars_read = 0;
+	char* input_buffer        = malloc(CONFIG_BUFFER_INPUT_SIZE);
+	char* config_file_content = malloc(1);
+	char* append_file_pointer = config_file_content;
 
-	free(input_buffer);
-	fclose(config_file);	
+	do
+	{
+		chars_read = fread(input_buffer, 1, CONFIG_BUFFER_INPUT_SIZE, config_file);
+		config_file_content = realloc(config_file_content, CONFIG_BUFFER_INPUT_SIZE * 2);
+
+		for(register int i = 0; i < CONFIG_BUFFER_INPUT_SIZE; i++)
+		{
+			*append_file_pointer = input_buffer[i];
+			append_file_pointer++;
+		}
+	} while(chars_read == CONFIG_BUFFER_INPUT_SIZE);
+	*append_file_pointer = 0;
+
+	printf("%s", config_file_content);
+
+	fclose(config_file);
 
 	do
 	{
